@@ -1,0 +1,46 @@
+$button-width: 16%;
+
+.app__chatbox {
+    background: #f9fbfc;
+    color: black;
+    font-family: 'Maven Pro';
+
+    border: none;
+    position: fixed;
+    bottom: 5px;
+    left: 0.5rem;
+    right: calc($button-width);
+    border-radius: 20px;
+    padding: 1rem 0.5rem 0.5rem 1rem;
+    box-shadow: 0 0 30px rgba(20 20 20 / 0.2);
+
+
+    outline: none;
+    resize: none;
+
+    &:hover {
+        box-shadow: 0 0 30px rgba(1 1 1 / 0.1);
+    }
+
+
+}
+
+.app__chatbox-submit {
+    position: fixed;
+    bottom: 5px;
+    right: 0.5rem;
+    padding: 1rem;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+
+    color: #16a25a;
+    background: #7effbc9e;
+    filter: blur(1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 0 30px rgba(1 1 1 / 0.1);
+}
