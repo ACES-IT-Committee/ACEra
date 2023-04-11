@@ -1,11 +1,10 @@
 import React, { BaseSyntheticEvent, useRef } from "react";
 import {BsFillSendFill} from "react-icons/bs"
 import style from "./Chatbox.module.scss";
+import ChatBot from "@/services/ChatBot";
 const Chatbox = ({
-    messages,
     postMessage,
 }: {
-    messages: Message[];
     postMessage: React.Dispatch<React.SetStateAction<Message[]>>;
 }) => {
     const messageRef = useRef<HTMLTextAreaElement>(null)
@@ -28,7 +27,7 @@ const Chatbox = ({
                 ref={messageRef}
                 name="message"
             ></textarea>
-            <button className={style["app__chatbox-submit"]}><BsFillSendFill /></button>
+            <button className={style["app__chatbox-submit"]} onClick={ () => setTimeout(() => ChatBot(postMessage), 700)}><BsFillSendFill /></button>
         </form>
     );
 };
