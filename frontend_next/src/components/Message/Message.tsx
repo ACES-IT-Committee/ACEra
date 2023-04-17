@@ -1,6 +1,7 @@
 import React from 'react'
 import style from "./Message.module.scss"
 import { motion } from 'framer-motion'
+import parse from "html-react-parser"
 const Message = ({message}: {message: Message}) => {
   return (
     <motion.div
@@ -10,7 +11,7 @@ const Message = ({message}: {message: Message}) => {
       className={style[message.sender] + " " + style["message"]}
 
     >
-      {message.message}
+      {parse(message.message)}
     </motion.div>
   )
 }
