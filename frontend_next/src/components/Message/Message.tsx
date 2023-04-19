@@ -5,8 +5,9 @@ import parse from "html-react-parser"
 const Message = ({message}: {message: Message}) => {
   return (
     <motion.div
-      whileInView={{ x: [message.sender == "user" ? -100 : 100, 0], scale: [0.5, 1.0], opacity: [0.3, 1.0] }}
-      transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05}}
+      initial={{ opacity: 0}}
+      whileInView={{ x: [message.sender == "user" ? -100 : 100, 0], scale: [0.9, 1.0], opacity: [0.3, 1.0] }}
+      transition={{duration: 0.55, type: 'spring'}}
       viewport={{once: true}}
       className={style[message.sender] + " " + style["message"]}
 

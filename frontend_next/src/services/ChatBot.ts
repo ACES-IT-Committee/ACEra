@@ -225,15 +225,16 @@ const botMessages = [
         }
     ]
 ];
+
 const ChatBot = (
     postMessage: React.Dispatch<React.SetStateAction<Message[]>>
 ) => {
-    postMessage((messages) => [
+  postMessage((messages) => [
         ...messages,
-        botMessages[messages.length/2][
+        botMessages[Math.round(messages.length/2)][
             Math.floor(
                 Math.random() *
-                    botMessages[messages.length/2]
+                    botMessages[Math.round(messages.length/2)]
                         .length
             )
         ],

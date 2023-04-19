@@ -1,4 +1,4 @@
-$button-width: 16%;
+$button-width: 3.8rem;
 
 .app__chatbox {
     background: #f9fbfc;
@@ -11,15 +11,23 @@ $button-width: 16%;
     left: 0.5rem;
     right: calc($button-width);
     border-radius: 20px;
+    height: 3rem;
     padding: 1rem 0.5rem 0.5rem 1rem;
     box-shadow: 0 0 30px rgba(20 20 20 / 0.2);
 
 
     outline: none;
     resize: none;
+    transition: all 0.3s ease-in-out;
+
 
     &:hover {
         box-shadow: 0 0 30px rgba(1 1 1 / 0.1);
+        height: 15vh;
+    }
+
+    &:focus {
+        height: 15vh;
     }
 
 
@@ -29,18 +37,22 @@ $button-width: 16%;
     position: fixed;
     bottom: 5px;
     right: 0.5rem;
-    padding: 1rem;
+    height: 3rem;
+    width: 3rem;
     border-radius: 50%;
     outline: none;
     border: none;
-
+    //change button height when message box is focused
     color: #16a25a;
     background: #7effbc9e;
-    filter: blur(1);
+    backdrop-filter: blur(1.5rem);
+    box-shadow: 0 0 30px rgba(1 1 1 / 0.1);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    box-shadow: 0 0 30px rgba(1 1 1 / 0.1);
+    svg {
+        font-size: larger;
+    }
 }
