@@ -8,7 +8,6 @@ const ChatArea = () => {
     const chatEndRef = useRef<HTMLDivElement>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [disableChat, setDisableChat] = useState(false);
-    const [typing, setTyping] = useState(false);
     const [data, setData] = useState<Data>({
         name: "",
         email: "",
@@ -19,11 +18,6 @@ const ChatArea = () => {
         experience: "",
         workshops: [],
     });
-
-    const typingSetter = (typing: boolean) => {
-        console.log(typing)
-        setTyping(typing)
-    }
 
     useScrollToChatBottom(chatEndRef, messages);
     useStartChatBot(setMessages);
@@ -39,8 +33,7 @@ const ChatArea = () => {
             {messages.map((message, index) => (
                 <Message key={index} message={message} />
             ))}
-            {typing == true? <Message message={{sender: "bot", message: "..."}}/> : ""}
-            <Chatbox typingSetter={typingSetter} disabled={disableChat} postMessage={setMessages} />
+            <Chatbox disabled={disableChat} postMessage={setMessages} />
             <div ref={chatEndRef} />
         </div>
     );

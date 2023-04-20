@@ -12,11 +12,9 @@ const buttonVariants = {
 const Chatbox = ({
     postMessage,
     disabled,
-    typingSetter
 }: {
         postMessage: React.Dispatch<React.SetStateAction<Message[]>>,
         disabled?: boolean,
-        typingSetter: (typing: boolean) => void
 }) => {
     const messageRef = useRef<HTMLTextAreaElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -53,11 +51,9 @@ const Chatbox = ({
                 className={style["app__chatbox-submit"]}
                 ref={buttonRef}
                 onClick={() => {
-                    typingSetter(true)
                     setTimeout(() => {
-                        typingSetter(false)
                         ChatBot(postMessage)
-                    }, 5000)
+                    }, 1000)
                 }}
                 animate={!boxFocused ? "circular" : "rectangular"}
                 variants={buttonVariants}
