@@ -23,7 +23,6 @@ $button-width: 3.8rem;
 
     &:hover {
         box-shadow: 0 0 30px rgba(1 1 1 / 0.1);
-        // height: 15vh;
     }
 
     &:focus {
@@ -42,7 +41,6 @@ $button-width: 3.8rem;
     border-radius: 50%;
     outline: none;
     border: none;
-    //change button height when message box is focused
     color: #16a25a;
     background: #7effbc9e;
     backdrop-filter: blur(1.5rem);
@@ -51,8 +49,12 @@ $button-width: 3.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    transition: font-size 0.3s ease;
     svg {
         font-size: larger;
+    }
+
+    &:hover {
+        cursor: pointer;
     }
 }

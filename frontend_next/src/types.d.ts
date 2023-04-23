@@ -11,9 +11,5 @@ interface Data {
     major: string,
     gradYear: string,
     experience: string,
-    workshops: number[]
-}
-
-interface ChatData extends Data {
     workshops: string
 }

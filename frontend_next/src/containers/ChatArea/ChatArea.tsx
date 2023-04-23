@@ -1,13 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import style from "./ChatArea.module.scss";
 import { Chatbox, Message } from "@/components";
 import images from "@/constants/images";
-import ChatBot from "@/services/ChatBot";
+import Chatbot from "@/services/ChatBot/ChatBot";
+
+const chatbot = new Chatbot();
 
 const ChatArea = () => {
-    const chatEndRef = useRef<HTMLDivElement>(null);
+    const chatBottomRef = useRef<HTMLDivElement>(null);
+    const [isChatDisabled, setIsChatDisabled] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
-    const [disableChat, setDisableChat] = useState(false);
     const [data, setData] = useState<Data>({
         name: "",
         email: "",
@@ -16,96 +24,107 @@ const ChatArea = () => {
         major: "",
         gradYear: "",
         experience: "",
-        workshops: [],
+        workshops: "",
     });
-
-    useScrollToChatBottom(chatEndRef, messages);
-    useStartChatBot(setMessages);
-    useGetData(messages, setData);
-    if (messages.length == 19) {
-        useSendData(data);
-        setDisableChat(true);
-    }
-
+    useScrollToChatBottom(chatBottomRef, messages);
+    useInitBot(setMessages);
+    useGetData(messages, setData, data);
+    useSendData(data, setIsChatDisabled);
     return (
         <div className={style["app__chat_area"]}>
             <img src={images.aces.src} />
             {messages.map((message, index) => (
                 <Message key={index} message={message} />
             ))}
-            <Chatbox disabled={disableChat} postMessage={setMessages} />
-            <div ref={chatEndRef} />
+            <Chatbox
+                setIsChatDisabled={setIsChatDisabled}
+                postMessage={setMessages}
+                requestReply={requestBotReply}
+                isDisabled={isChatDisabled}
+                isChatDone={chatbot.isChatDone}
+            />
+            <div ref={chatBottomRef} />
         </div>
     );
 };
 
 export default ChatArea;
 
+// Keep chat in screen
 const useScrollToChatBottom = (
-    chatEndRef: React.RefObject<HTMLDivElement>,
+    chatBottomRef: React.RefObject<HTMLDivElement>,
     messages: Message[]
 ) => {
     const scrollToBottom = () => {
-        chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
     };
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
 };
 
-const useStartChatBot = (
+// Interact with bot
+// a. initialize bot
+const useInitBot = (
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>
 ) => {
     useEffect(() => {
-        ChatBot(setMessages);
+        setMessages((messages) => [...messages, chatbot.init()]);
     }, []);
 };
-
-const useGetData = (
-    messages: Message[],
-    setData: React.Dispatch<React.SetStateAction<Data>>
+// b. request bot replies (used as action callback fn inside Chatbox)
+const requestBotReply = (
+    message: Message,
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setIsChatDisabled: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-    const getWorkShops = (workshops: string): number[] => {
-        const wsList = workshops.split(",");
-        const wsNumberdList: number[] = [];
-        wsList.forEach((ws) => {
-            wsNumberdList.push(parseInt(ws));
-        });
-        return wsNumberdList;
-    };
-    useEffect(() => {
-        const chatData: ChatData = {
-            name: "",
-            email: "",
-            phone: "",
-            school: "",
-            major: "",
-            gradYear: "",
-            experience: "",
-            workshops: "",
-        };
-
-        if (messages.length == 19) {
-            let i = 3; //index of name message by user
-            for (const prop in chatData) {
-                chatData[prop as keyof Data] = messages[i]!.message;
-                i += 2;
-            }
-
-            setData({
-                name: chatData.name,
-                email: chatData.email,
-                phone: chatData.phone,
-                school: chatData.school,
-                major: chatData.major,
-                gradYear: chatData.gradYear,
-                experience: chatData.experience,
-                workshops: getWorkShops(chatData.workshops),
-            });
-        }
-    }, [messages]);
+    setIsChatDisabled(true);
+    setTimeout(() => {
+        (async () => {
+            setIsChatDisabled(false);
+            chatbot
+                .reply(message) //request bot reply to last user message
+                .then((botReply) => {
+                    setMessages((messages) => [...messages, botReply]);
+                });
+        })();
+    }, 1000);
 };
 
-const useSendData = (data: Data) => {
-    data.name && console.log(data);
+// Deal with data
+// a. extract data from user messages
+const useGetData = (
+    messages: Message[],
+    setData: React.Dispatch<React.SetStateAction<Data>>,
+    data: Data
+) => {
+    const getProps = useMemo(() => {
+        const props: (keyof Data)[] = [];
+        for (const prop in data) props.push(prop as keyof Data);
+        return props;
+    }, []);
+    useEffect(() => {
+        chatbot.isDataGetable &&
+            setData((prevData) => {
+                const newData = { ...prevData };
+                newData[
+                    getProps[chatbot.currentIndex + chatbot.userIndexOffset]
+                ] =
+                    messages[
+                        messages.length - 2 //get last validated user message
+                    ]!.message;
+                return newData;
+            });
+        console.log(chatbot.currentIndex);
+    }, [chatbot.currentIndex]);
+};
+// b. send data to api
+const useSendData = (
+    data: Data,
+    setIsChatDisabled: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    useEffect(() => {
+        chatbot.isDataDone && console.log(data);
+        chatbot.isDataDone && setIsChatDisabled(true);
+    }, [data]);
 };

@@ -23,5 +23,10 @@
     "react-icons": "^4.8.0",
     "sass": "^1.61.0",
     "typescript": "5.0.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.13.0",
+    "prisma": "^4.13.0",
+    "yup": "^1.1.1"
   }
 }
