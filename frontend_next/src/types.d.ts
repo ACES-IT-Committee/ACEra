@@ -9,7 +9,14 @@ interface Data {
     phone: string,
     school: string,
     major: string,
-    gradYear: string,
+    gradYear: number,
     experience: string,
-    workshops: string
+    workshops: number[]
+}
+
+interface validateforDBTodo {
+    CLOSE: string,
+    ASK: string,
+    RUN: string
+
 }

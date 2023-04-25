@@ -22,14 +22,12 @@ const treats = [
 const iconTreats = [<FaKissWinkHeart />, <FaSmileWink />, <AiFillSmile />];
 const Chatbox = ({
     postMessage,
-    action,
     requestReply,
     isDisabled,
     setIsChatDisabled,
     isChatDone,
 }: {
     postMessage: React.Dispatch<React.SetStateAction<Message[]>>;
-    action?: () => void;
     requestReply?: (
         lastUserMessage: Message,
         postMessage: React.Dispatch<React.SetStateAction<Message[]>>,
@@ -43,6 +41,7 @@ const Chatbox = ({
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [boxFocused, setBoxFocused] = useState(false);
     const [treatIndex, setTreatIndex] = useState(0);
+    const [isEmptyWarn, setIsEmptyWarn] = useState(false)
 
     const createMessage = ({ sender, message }: Message) => {
         postMessage((messages) => [
@@ -62,9 +61,9 @@ const Chatbox = ({
             <textarea
                 className={style["app__chatbox"]}
                 placeholder={
-                    !isDisabled
+                    isEmptyWarn? "You don't want to write an awesome message? 🫤" : (!isDisabled
                         ? "Write an awesome message..."
-                        : treats[treatIndex % treats.length]
+                        : treats[treatIndex % treats.length])
                 }
                 ref={messageRef}
                 name="message"
@@ -76,14 +75,26 @@ const Chatbox = ({
                 className={style["app__chatbox-submit"]}
                 ref={buttonRef}
                 onClick={() => {
-                    requestReply!( //request reply to last user message
-                    { sender: "user", message: messageRef.current!.value },
-                    postMessage,
-                    setIsChatDisabled
-                );
-                    handlePostMessage(); //post user message
+                    if (messageRef.current?.value.length != 0) {
+                        requestReply!(
+                            //request reply to last user message
+                            {
+                                sender: "user",
+                                message: messageRef.current!.value,
+                            },
+                            postMessage,
+                            setIsChatDisabled
+                        );
+                        handlePostMessage(); //post user message
 
-                    !isDisabled && setTreatIndex((prevIndex) => prevIndex + 1); //increment textarea placeholder
+                        !isDisabled &&
+                            setTreatIndex((prevIndex) => prevIndex + 1); //increment textarea placeholder
+                    } else {
+                        setIsEmptyWarn(true)
+                        setTimeout(() => {
+                            setIsEmptyWarn(false)
+                        }, 1300)
+                    }
                 }}
                 animate={!boxFocused || isChatDone ? "circular" : "rectangular"}
                 variants={buttonVariants}

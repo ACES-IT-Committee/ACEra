@@ -1,14 +1,12 @@
 import React, {
-    useCallback,
     useEffect,
-    useMemo,
     useRef,
     useState,
 } from "react";
 import style from "./ChatArea.module.scss";
 import { Chatbox, Message } from "@/components";
 import images from "@/constants/images";
-import Chatbot from "@/services/ChatBot/ChatBot";
+import Chatbot from "../../services/FormChatbot/FormChatbot";
 
 const chatbot = new Chatbot();
 
@@ -16,20 +14,10 @@ const ChatArea = () => {
     const chatBottomRef = useRef<HTMLDivElement>(null);
     const [isChatDisabled, setIsChatDisabled] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
-    const [data, setData] = useState<Data>({
-        name: "",
-        email: "",
-        phone: "",
-        school: "",
-        major: "",
-        gradYear: "",
-        experience: "",
-        workshops: "",
-    });
+
     useScrollToChatBottom(chatBottomRef, messages);
     useInitBot(setMessages);
-    useGetData(messages, setData, data);
-    useSendData(data, setIsChatDisabled);
+    useEndChat(setIsChatDisabled);
     return (
         <div className={style["app__chat_area"]}>
             <img src={images.aces.src} />
@@ -91,40 +79,13 @@ const requestBotReply = (
     }, 1000);
 };
 
-// Deal with data
-// a. extract data from user messages
-const useGetData = (
-    messages: Message[],
-    setData: React.Dispatch<React.SetStateAction<Data>>,
-    data: Data
-) => {
-    const getProps = useMemo(() => {
-        const props: (keyof Data)[] = [];
-        for (const prop in data) props.push(prop as keyof Data);
-        return props;
-    }, []);
-    useEffect(() => {
-        chatbot.isDataGetable &&
-            setData((prevData) => {
-                const newData = { ...prevData };
-                newData[
-                    getProps[chatbot.currentIndex + chatbot.userIndexOffset]
-                ] =
-                    messages[
-                        messages.length - 2 //get last validated user message
-                    ]!.message;
-                return newData;
-            });
-        console.log(chatbot.currentIndex);
-    }, [chatbot.currentIndex]);
-};
-// b. send data to api
-const useSendData = (
-    data: Data,
+// end chat when finished
+const useEndChat = (
     setIsChatDisabled: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
     useEffect(() => {
-        chatbot.isDataDone && console.log(data);
-        chatbot.isDataDone && setIsChatDisabled(true);
-    }, [data]);
+        if (chatbot.isChatDone) {
+            setIsChatDisabled(true);
+        }
+    }, [chatbot.isChatDone]);
 };
