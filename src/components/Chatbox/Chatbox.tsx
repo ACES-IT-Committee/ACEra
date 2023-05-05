@@ -7,98 +7,102 @@ import { motion } from "framer-motion";
 
 const buttonVariants = {
     circular: { borderRadius: "50%", height: "3rem" },
-    rectangular: { borderRadius: "30px", height: "15vh" },
+    rectangular: { borderRadius: "30px", height: "9vh" },
 };
 
 const treats = [
-    "Thanks for your response! 😊",
     "Today is really beautiful 🌞",
+    "Thanks for that! 😊",
     "You are doing great! 👏",
+    "Sounds Good. 👍",
+    "Awesome! 🌟",
     "You are fun to talk to! 🗣️",
     "You have a lot of potential! 💯",
     "You are awesome! 🙌",
     "You are amazing! 🌈 Have a nice day ✨",
+
 ];
 const iconTreats = [<FaKissWinkHeart />, <FaSmileWink />, <AiFillSmile />];
 const Chatbox = ({
     postMessage,
     requestReply,
-    isDisabled,
-    setIsChatDisabled,
     isChatDone,
 }: {
     postMessage: React.Dispatch<React.SetStateAction<Message[]>>;
     requestReply?: (
         lastUserMessage: Message,
-        postMessage: React.Dispatch<React.SetStateAction<Message[]>>,
-        setIsChatDisabled: React.Dispatch<React.SetStateAction<boolean>>
+        postMessage: React.Dispatch<React.SetStateAction<Message[]>>
     ) => void;
-    isDisabled: boolean;
-    setIsChatDisabled: React.Dispatch<React.SetStateAction<boolean>>;
     isChatDone: boolean;
 }) => {
     const messageRef = useRef<HTMLTextAreaElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const [isChatPaused, setIsChatPaused] = useState(false);
     const [boxFocused, setBoxFocused] = useState(false);
-    const [treatIndex, setTreatIndex] = useState(0);
-    const [isEmptyWarn, setIsEmptyWarn] = useState(false)
+    const [treatIndex, setTreatIndex] = useState(-1);
+    const [isEmptyWarn, setIsEmptyWarn] = useState(false);
 
-    const createMessage = ({ sender, message }: Message) => {
-        postMessage((messages) => [
-            ...messages,
-            { sender: sender, message: message },
-        ]);
-    };
-
-    const handlePostMessage = () => {
-        createMessage({ sender: "user", message: messageRef.current!.value });
-        messageRef.current!.value = "";
+    const handlePostUserMessage = () => {
+        setTimeout(() => {
+            postMessage((messages) => [
+                ...messages,
+                { sender: "user", message: messageRef.current!.value },
+            ]);
+            messageRef.current!.value = "";
+        }, 50);
     };
 
     useEnterSend(messageRef, buttonRef);
     return (
-        <div>
+        <div className={style["app__chatbox"]}>
             <textarea
-                className={style["app__chatbox"]}
                 placeholder={
-                    isEmptyWarn? "You don't want to write an awesome message? 🫤" : (!isDisabled
-                        ? "Write an awesome message..."
-                        : treats[treatIndex % treats.length])
+                    isEmptyWarn
+                        ? "You don't want to write an awesome message? 🫤"
+                        : isChatPaused || isChatDone
+                        ? treats[treatIndex % treats.length]
+                        : "Write an awesome message..."
                 }
                 ref={messageRef}
                 name="message"
                 disabled={isChatDone}
-                onFocus={() => setBoxFocused(true)}
-                onBlur={() => setBoxFocused(false)}
+                onFocus={(e) => {
+                    setBoxFocused(true);
+                    e.preventDefault();
+                }}
+                onBlur={() => {
+                    setBoxFocused(false);
+                }}
             ></textarea>
             <motion.button
                 className={style["app__chatbox-submit"]}
                 ref={buttonRef}
                 onClick={() => {
+                    messageRef.current?.focus();
                     if (messageRef.current?.value.length != 0) {
+                        pauseChat(setIsChatPaused);
+                        handlePostUserMessage(); //post user message
                         requestReply!(
                             //request reply to last user message
                             {
                                 sender: "user",
                                 message: messageRef.current!.value,
                             },
-                            postMessage,
-                            setIsChatDisabled
+                            postMessage
                         );
-                        handlePostMessage(); //post user message
-
-                        !isDisabled &&
+                        !isChatPaused &&
+                            !isChatDone &&
                             setTreatIndex((prevIndex) => prevIndex + 1); //increment textarea placeholder
                     } else {
-                        setIsEmptyWarn(true)
+                        setIsEmptyWarn(true);
                         setTimeout(() => {
-                            setIsEmptyWarn(false)
-                        }, 1300)
+                            setIsEmptyWarn(false);
+                        }, 1300);
                     }
                 }}
                 animate={!boxFocused || isChatDone ? "circular" : "rectangular"}
                 variants={buttonVariants}
-                disabled={isDisabled}
+                disabled={isChatPaused || isChatDone}
                 style={isChatDone ? { fontSize: "x-large" } : {}}
             >
                 {isChatDone ? (
@@ -125,4 +129,13 @@ const useEnterSend = (
             }
         });
     }, []);
+};
+
+const pauseChat = (
+    setIsChatPaused: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    setIsChatPaused(true);
+    setTimeout(() => {
+        setIsChatPaused(false);
+    }, 1000);
 };

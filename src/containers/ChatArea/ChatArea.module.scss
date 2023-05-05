@@ -1,9 +1,7 @@
 .app__chat_area {
     display: flex;
     flex-direction: column;
-    background: white;
-    min-height: 100vh;
-
+    width: 100%;
     img {
         margin-top: 10px;
         height: 75px;
@@ -12,9 +10,15 @@
         border-radius: 50%;
     }
 
-    &::after {
-        content: '';
-        height: 14vh;
+    .app__chat_feed {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .app__chat_bottom {
+        width: 100%;
+        height: 10vh;
+        // height: calc( 10 * env(keyboard-inset-height));
     }
 }
 

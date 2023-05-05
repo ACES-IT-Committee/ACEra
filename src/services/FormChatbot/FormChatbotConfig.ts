@@ -49,7 +49,7 @@ const botMessages: {
             {
                 sender: "bot",
                 message:
-                    "First of all, I need to know some basic information. 📝<br><br>How do you call yourself? 🤔",
+                    "First of all, I need to know some basic information. 📝<br><br>Can I have your name? 🤔",
             },
 
             {
@@ -61,7 +61,7 @@ const botMessages: {
             {
                 sender: "bot",
                 message:
-                    "To begin with, I require some basic information. 📝<br><br>How do you identify yourself? 🤔",
+                    "To begin with, I require some basic information. 📝<br><br>May I have your name? 🤔",
             },
 
             {
@@ -73,14 +73,14 @@ const botMessages: {
             {
                 sender: "bot",
                 message:
-                    "For starters, I request some basic information. 📝<br><br>How do you introduce yourself? 🤔",
+                    "For starters, I request some basic information. 📝<br><br>What's your name? 🤔",
             },
         ],
 
         email: (_userData: Data) => [
             {
                 sender: "bot",
-                message: `Hi ${userData.name}! I would like to stay in touch with you via email. 📧<br><br>What is your email address? 🤔`,
+                message: `Hi ${userData.name}! It's great to have you today. 😊<br><br>What is your most used email address? 🤔`,
             },
 
             {
@@ -95,12 +95,12 @@ const botMessages: {
 
             {
                 sender: "bot",
-                message: `Hi ${userData.name}! I hope you are enjoying this conversation. 😊<br><br>What is your preferred email for communication? 🤔`,
+                message: `Hi ${userData.name}! I hope you will enjoy this conversation. 😊<br><br>What is your preferred email for communication? 🤔`,
             },
 
             {
                 sender: "bot",
-                message: `Hi ${userData.name}! I value your time and attention. 👏<br><br>What is the email address you check regularly? 🤔`,
+                message: `Hi ${userData.name}! I would like to keep you updated on the status of your request. 😊<br><br>What is the email address you check regularly? 🤔`,
             },
         ],
 
@@ -108,31 +108,31 @@ const botMessages: {
             {
                 sender: "bot",
                 message:
-                    "I would like to keep you updated on the status of your request. 📲<br><br>What is your phone number to send you updates? 🤔",
+                    "Thanks for that! 🫡 I would like to ensure you're updated on the status of your request. 📲<br><br>What is your phone number to send you updates? 🤔",
             },
 
             {
                 sender: "bot",
                 message:
-                    "I'm grateful for your patience and understanding. 🙏<br><br>What is the best number to text you with updates on your request? 🤔",
+                    "Awesome! ✨ I want to keep you informed about the progress of your request. 📩<br><br>What is the best number to text you with updates on your request? 🤔",
             },
 
             {
                 sender: "bot",
                 message:
-                    "I want to make sure you are informed and satisfied. 😊<br><br>What is the phone number you use for receiving updates? 🤔",
+                    "Got it! 👌 I want to make sure you are up to date with your request. 😊<br><br>What is the phone number you use for receiving updates? 🤔",
             },
 
             {
                 sender: "bot",
                 message:
-                    "I hope you are doing well and staying safe. 😊<br><br>What is your preferred number to get updates on your request? 🤔",
+                    "Sounds good! 👍 I want to ensure you won't miss any updates. 😊<br><br>What is your preferred number to get updates on your request? 🤔",
             },
 
             {
                 sender: "bot",
                 message:
-                    "I care about the quality of your experience. 👍<br><br>What is the phone number you feel comfortable receiving updates from me? 🤔",
+                    "Noted. 👍 I care about the quality of your experience. 🙌<br><br>What is the phone number you feel comfortable receiving updates from me? 🤔",
             },
         ],
 
@@ -140,119 +140,102 @@ const botMessages: {
             {
                 sender: "bot",
                 message:
-                    "I'm happy for you that you are pursuing higher education. 🎓<br><br>What is the name of the college you are attending? 🤔",
+                    "Awesome! ✨ I'm curious about your academic background. 🎓<br><br>What is the name of the college you are attending? 🤔",
             },
 
             {
                 sender: "bot",
                 message:
-                    "I'm proud of you for following your academic dreams. 🎓<br><br>What is the college you are enrolled in? 🤔",
-            },
-
-            {
-                sender: "bot",
-                message:
-                    "I'm excited for you that you are exploring new opportunities. 🎓<br><br>What is the college you are studying at? 🤔",
-            },
-
-            {
-                sender: "bot",
-                message:
-                    "I'm impressed by your dedication and ambition. 🎓<br><br>What is the college you are affiliated with? 🤔",
-            },
-
-            {
-                sender: "bot",
-                message:
-                    "I'm curious about your educational journey. 🎓<br><br>What is the college you are going to? 🤔",
+                    "Got it! 👌 I'm curious about your educational journey. 🎓<br><br>What is the college you are going to? 🤔",
             },
         ],
 
         major: (_userData: Data) => [
             {
                 sender: "bot",
-                message: `That's amazing! ${userData.school} is so prestigious. 🏫<br><br>I've heard great things about their courses and resources. 📚<br><br>I wonder what you're learning there. 🤔<br><br>What's your major? 🎓`,
+                message: `That's amazing! ${userData.school} is so prestigious. 🏫 I've heard great things about their courses and resources. 📚 I wonder what you're learning there. 🤔<br><br>What's your major? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `That's incredible! ${userData.school} is very impressive. 🏫<br><br>I've always been interested in their offerings and opportunities. 📚<br><br>I'd love to know what you're studying there. 🤔<br><br>What's your major? 🎓`,
+                message: `That's incredible! ${userData.school} is very impressive. 🏫 I've always been interested in their offerings and opportunities. 📚 I'd love to know what you're studying there. 🤔<br><br>What's your major? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `That's fantastic! ${userData.school} is awesome. 🏫<br><br>I've seen their achievements and facilities. 📚<br><br>I'm eager to know what you're pursuing there. 🤔<br><br>What's your major? 🎓`,
+                message: `That's fantastic! ${userData.school} is awesome. 🏫 I've seen their achievements and facilities. 📚 I'm eager to know what you're pursuing there. 🤔<br><br>What's your major? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `That's wonderful! ${userData.school} is excellent. 🏫<br><br>I've read about their quality and diversity. 📚<br><br>I'm keen to know what you're exploring there. 🤔<br><br>What's your major? 🎓`,
+                message: `That's wonderful! ${userData.school} is excellent. 🏫 I've read about their quality and diversity. 📚 I'm keen to know what you're exploring there. 🤔<br><br>What's your major? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `That's splendid! ${userData.school} is outstanding. 🏫<br><br>I've admired their reputation and innovation. 📚<br><br>I'm curious to know what you're focusing on there. 🤔<br><br>What's your major? 🎓`,
+                message: `That's splendid! ${userData.school} is outstanding. 🏫 I've admired their reputation and innovation. 📚 I'm curious to know what you're focusing on there. 🤔<br><br>What's your major? 🎓`,
             },
         ],
 
         gradYear: (_userData: Data) => [
             {
                 sender: "bot",
-                message: `I'm impressed by your choice of ${userData.major}. 🙌<br><br>It sounds very challenging and rewarding. 💯<br><br>When do you expect to graduate with your degree? 🎓`,
+                message: `I'm impressed by your choice of ${userData.major}. 🙌 It sounds very challenging and rewarding. 💯<br><br>When do you expect to graduate with your degree? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `I'm fascinated by your ${userData.major}. 🙌<br><br>It seems very interesting and relevant. 💯<br><br>What is your anticipated graduation year for your program? 🎓`,
+                message: `I'm fascinated by your choice of ${userData.major}. 🙌 It seems very interesting and rewarding. 💯<br><br>What is your anticipated graduation year for your program? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `I'm intrigued by your ${userData.major}. 🙌<br><br>It looks very exciting and meaningful. 💯<br><br>When will you complete your studies in your field? 🎓`,
+                message: `I'm intrigued by your your choice of ${userData.major}. 🙌 It looks very exciting and meaningful. 💯<br><br>When will you graduate from your program? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `I'm amazed by your ${userData.major}. 🙌<br><br>It appears very demanding and fulfilling. 💯<br><br>What is your expected graduation date for your course? 🎓`,
+                message: `I'm amazed by your your choice of ${userData.major}. 🙌 It appears very demanding and fulfilling. 💯<br><br>What is your expected graduation date for your course? 🎓`,
             },
 
             {
                 sender: "bot",
-                message: `I'm astonished by your ${userData.major}. 🙌<br><br>It sounds very complex and valuable. 💯<br><br>When are you going to graduate with your qualification? 🎓`,
+                message: `I'm astonished by your your choice of ${userData.major}. 🙌 It sounds very complex and valuable. 💯<br><br>When are you going to graduate with your qualification? 🎓`,
             },
         ],
 
         experience: (_userData: Data) => [
             {
                 sender: "bot",
-                message: `I'm keen to know more about your student life and achievements, ${userData.name}. 🙌<br><br>You seem like a very involved and inventive person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've joined in. 🤔`,
+                message: `I'm keen to know more about your student life and achievements, ${userData.name}. 🙌 You seem like a very involved and inventive person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've joined in. 🤔`,
             },
 
             {
                 sender: "bot",
-                message: `I'm eager to learn more about your student life and achievements, ${userData.name}. 🙌<br><br>You seem like a very committed and original person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've taken part in. 🤔`,
+                message: `I'm eager to learn more about your student life and achievements, ${userData.name}. 🙌 You seem like a very committed and original person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've taken part in. 🤔`,
             },
 
             {
                 sender: "bot",
-                message: `I'm excited to hear more about your student life and achievements, ${userData.name}. 🙌<br><br>You seem like a very dedicated and creative person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've engaged in. 🤔`,
+                message: `I'm excited to hear more about your student life and achievements, ${userData.name}. 🙌 You seem like a very dedicated and creative person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've engaged in. 🤔`,
             },
 
             {
                 sender: "bot",
-                message: `I'm curious to find out more about your student life and achievements, ${userData.name}. 🙌<br><br>You seem like a very active and innovative person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've been part of. 🤔`,
+                message: `I'm curious to find out more about your student life and achievements, ${userData.name}. 🙌 You seem like a very active and innovative person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've been part of. 🤔`,
             },
 
             {
                 sender: "bot",
-                message: `I'm enthusiastic to discover more about your student life and achievements, ${userData.name}. 🙌<br><br>You seem like a very passionate and imaginative person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've contributed to. 🤔`,
+                message: `I'm enthusiastic to discover more about your student life and achievements, ${userData.name}. 🙌 You seem like a very passionate and imaginative person. 👏<br><br>Tell me more about the activities, events, workshops, projects, or internships that you've contributed to. 🤔`,
             },
         ],
 
         workshops: (_userData: Data) => [
             {
                 sender: "bot",
-                message: `I'm glad you are interested in applying for our workshops. We have two options available: CV writing and project management. Which one would you like to apply for? <br><br>CV writing: This workshop will help you craft a professional and effective CV that showcases your skills and achievements.<br><br>Project management: This workshop will teach you the basics of project management, such as planning, organizing, leading and controlling.`,
+                message: `Wow! 🫢 That sounds amazing. 🌟 Now, it's time to choose your workshop! 🌟
+    We have three amazing workshops for you: sales, project management, and marketing. 🚀 Each workshop will teach you valuable skills and knowledge that will help you grow personally and professionally. 😊 Uncertain which to choose? 🤔 Here are some short notes for each one: <br><br> <b>Sales</b> <span>1</span>: This workshop will teach you everything you need to know about sales. 🎯 You will learn the sales process, the psychology of selling, and the customer-centric approach. 🧠 You will also practice negotiation and communication skills, as well as how to handle objections and close deals. 💯<br><br> <b>Project management</b> <span>2</span>: This workshop will introduce you to the fundamentals of project management. 📝 You will learn the responsibilities and abilities of a project manager, and how to manage the scope, time, quality, and cost of a project. 📊 You will also develop time management, leadership, decision-making, and communication skills. 🙌<br><br> <b>Marketing</b> <span>3</span>: This workshop will show you the power and importance of marketing. 🚀 You will learn how to design and implement effective marketing strategies. 🎯 You will also understand the key elements and concepts of marketing. 📚 This workshop will help you to recognize and apply marketing activities in your daily life. 🙌<br><br> To choose your preferences of workshops, just enter the number next to the workshop in the order you want (you can choose up to 2 preferences) like so: 2, 1. 🔢`,
             },
         ],
     },
@@ -260,7 +243,7 @@ const botMessages: {
         {
             sender: "bot",
             message:
-                "Awesome!👌. Thanks for your collaboration 🤝. You will here from us soon on your email. ✉️",
+                "Awesome!👌. It was really nice to chat with you 😊. You will here from us soon on your email. ✉️",
         },
     ],
     verifications: (userData) => [
@@ -297,11 +280,13 @@ const botMessages: {
         unknown: [
             {
                 sender: "bot",
-                message: "Something wrong happened! 😵. Don't worry, you restart by reloading the page 🔄️. Communicate with an IT member if you need further assistance. 🧑‍💻"
-            }
-        ]
+                message:
+                    "Something wrong happened! 😵. Don't worry, you can restart by reloading the page 🔄️. Communicate with an IT member if you need further assistance. 🧑‍💻",
+            },
+        ],
     },
 };
+
 const validationSchema = yup.object({
     name: yup
         .string()
@@ -331,8 +316,8 @@ const validationSchema = yup.object({
     phone: yup
         .string()
         .matches(
-            /^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$/,
-            "Oops, that doesn't look like a valid phone number 😅. Please enter a phone number that has 10 digits and follows the format (000) 000-0000 or 000-000-0000 🙏."
+            /^\+?\(?(\d{2,3})\)?\s?(\d{2,3})\s?(\d{3})\s?(\d{4})$/,
+            "Oops, that doesn't look like a valid phone number 😅. Please enter a phone number that has 10 digits and follows the format 0000 000 0000 or +20 000 000 0000 🙏."
         )
         .min(
             10,
@@ -412,8 +397,8 @@ const validationSchema = yup.object({
                     "Oops, that doesn't look like a valid workshop number 😅. Please enter a workshop number that is positive 🙏."
                 )
                 .max(
-                    5,
-                    "Oops, that doesn't look like a valid workshop number 😅. Please enter a workshop number that is less than or equal to 5 🙏."
+                    3,
+                    "Oops, that doesn't look like a valid workshop number 😅. Please enter a workshop number that is less than or equal to 3 🙏."
                 )
         )
         .min(
@@ -421,8 +406,8 @@ const validationSchema = yup.object({
             "Oops, you need to select at least one workshop 😅. Please enter a comma-separated list of workshop numbers 🙏."
         )
         .max(
-            3,
-            "Oops, you can only select up to three workshops 😅. Please enter a comma-separated list of workshop numbers 🙏."
+            2,
+            "Oops, you can only select up to two workshop pereferences 😅. Please enter a comma-separated list of workshop numbers 🙏."
         )
         .required(
             "I really want to know what you are interested in learning 🥺. Please tell me your workshop numbers 🫤"
@@ -449,18 +434,31 @@ const processingMethods: Record<keyof Data, (arg: string) => unknown> = {
     },
 };
 
-const validateforDB = (errMsg: unknown): {todo: keyof validateforDBTodo, messagesForCurrentErr: Message[], field?: keyof Data} => {
+const validateforDB = (
+    errMsg: unknown
+): {
+    todo: keyof validateforDBTodo;
+    messagesForCurrentErr: Message[];
+    field?: keyof Data;
+} => {
     if (errMsg == "INVALID_EMAIL") {
-        return {todo: "ASK", messagesForCurrentErr: botMessages.errors.email, field: "email" }
+        return {
+            todo: "ASK",
+            messagesForCurrentErr: botMessages.errors.email,
+            field: "email",
+        };
     } else if (errMsg === "UNKNOWN_ERROR") {
-        return {todo: "RUN", messagesForCurrentErr: botMessages.errors.unknown}
+        return {
+            todo: "RUN",
+            messagesForCurrentErr: botMessages.errors.unknown,
+        };
     } else {
-        return {todo: "CLOSE", messagesForCurrentErr: botMessages.outros}
+        return { todo: "CLOSE", messagesForCurrentErr: botMessages.outros };
     }
 };
 
+const formAPIEndpoint = "/api/createFormResponse";
 
-const formAPIEndpoint = "";
 const botConfig = {
     validationSchema,
     props,

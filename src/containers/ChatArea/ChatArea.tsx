@@ -1,8 +1,4 @@
-import React, {
-    useEffect,
-    useRef,
-    useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./ChatArea.module.scss";
 import { Chatbox, Message } from "@/components";
 import images from "@/constants/images";
@@ -12,26 +8,29 @@ const chatbot = new Chatbot();
 
 const ChatArea = () => {
     const chatBottomRef = useRef<HTMLDivElement>(null);
-    const [isChatDisabled, setIsChatDisabled] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
+    const chatAreaRef = useRef<HTMLDivElement>(null)
 
     useScrollToChatBottom(chatBottomRef, messages);
     useInitBot(setMessages);
-    useEndChat(setIsChatDisabled);
+    
     return (
-        <div className={style["app__chat_area"]}>
+        <div className={style["app__chat_area"]} ref={chatAreaRef}>
             <img src={images.aces.src} />
-            {messages.map((message, index) => (
-                <Message key={index} message={message} />
-            ))}
+            <div className={style["app__chat_feed"]}>
+                {messages.map((message, index) => (
+                    <Message key={index} message={message} />
+                ))}
+                <div
+                    className={style["app__chat_bottom"]}
+                    ref={chatBottomRef}
+                />
+            </div>
             <Chatbox
-                setIsChatDisabled={setIsChatDisabled}
                 postMessage={setMessages}
                 requestReply={requestBotReply}
-                isDisabled={isChatDisabled}
                 isChatDone={chatbot.isChatDone}
             />
-            <div ref={chatBottomRef} />
         </div>
     );
 };
@@ -44,7 +43,7 @@ const useScrollToChatBottom = (
     messages: Message[]
 ) => {
     const scrollToBottom = () => {
-        chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        chatBottomRef.current?.scrollIntoView({behavior: "smooth"});
     };
     useEffect(() => {
         scrollToBottom();
@@ -57,19 +56,17 @@ const useInitBot = (
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>
 ) => {
     useEffect(() => {
-        setMessages((messages) => [...messages, chatbot.init()]);
+        setMessages((messages) => [...messages, chatbot.startBot()]);
     }, []);
 };
 // b. request bot replies (used as action callback fn inside Chatbox)
 const requestBotReply = (
     message: Message,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-    setIsChatDisabled: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-    setIsChatDisabled(true);
+    // setIsChatDisabled(true);
     setTimeout(() => {
         (async () => {
-            setIsChatDisabled(false);
             chatbot
                 .reply(message) //request bot reply to last user message
                 .then((botReply) => {
@@ -77,15 +74,4 @@ const requestBotReply = (
                 });
         })();
     }, 1000);
-};
-
-// end chat when finished
-const useEndChat = (
-    setIsChatDisabled: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-    useEffect(() => {
-        if (chatbot.isChatDone) {
-            setIsChatDisabled(true);
-        }
-    }, [chatbot.isChatDone]);
 };
